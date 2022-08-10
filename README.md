@@ -9,7 +9,7 @@
 
 ---
 
-**This Web library template** allows you to easily develop, collaborate and publish a web library with all modern tooling from current JavaScript ecosystem.
+**This JS library template** allows you to easily develop, collaborate and publish a web library with all modern tooling from current JavaScript ecosystem.
 
 ### Why use this?
 
