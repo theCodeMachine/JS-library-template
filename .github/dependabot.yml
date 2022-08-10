@@ -1,0 +1,17 @@
+version: 2
+# for private repositories
+# registries:
+#     npm-nexus:
+#         type: npm-registry
+#         url: https://domain/repository/npm-group/
+#         username: dependabot
+#         password: ${{secrets.dependabot.NEXUS_PASSWORD}}
+updates:
+    - package-ecosystem: 'npm'
+      directory: '/'
+      # registries:
+      #     - npm-nexus
+      schedule:
+          interval: 'daily'
+      commit-message:
+          prefix: 'npm'

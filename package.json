@@ -1,0 +1,80 @@
+{
+    "name": "Reimagine-JS-libraries",
+    "version": "0.0.1",
+    "description": "Re-imagine JS libraries - JS library template",
+    "main": "./dist/main.js",
+    "module": "./dist/main.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/theCodeMachine/Reimagine-JS-libraries.git"
+    },
+    "author": "Rahul Luthra",
+    "license": "N/A",
+    "private": true,
+    "keywords": [
+        "template",
+        "javascript",
+        "package"
+    ],
+    "scripts": {
+        "build": "webpack --config 'build/webpack.config.js'",
+        "finish": "yarn format && yarn types",
+        "format": "prettier --write 'lib/**/*.{js,ts}' && eslint 'lib/**/*.{js,ts}' --fix",
+        "lint": "prettier --check 'lib/**/*.{js,ts}' && eslint 'lib/**/*.{js,ts}'",
+        "prepare": "husky install && yarn build",
+        "release": "semantic-release",
+        "test": "jest --coverage",
+        "types": "tsc --noEmit"
+    },
+    "lint-staged": {
+        "lib/**/*.{js,ts}": "yarn format"
+    },
+    "publishConfig": {
+       "tag": "latest",
+        "pkgRoot": "dist"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.17.6",
+        "@babel/core": "^7.17.8",
+        "@babel/eslint-parser": "^7.17.0",
+        "@babel/plugin-proposal-class-properties": "^7.16.7",
+        "@babel/plugin-proposal-private-methods": "^7.16.11",
+        "@babel/preset-env": "^7.16.11",
+        "@babel/preset-typescript": "^7.16.7",
+        "@commitlint/cli": "^16.2.3",
+        "@commitlint/config-conventional": "^16.2.1",
+        "@semantic-release/changelog": "^6.0.1",
+        "@semantic-release/git": "^10.0.1",
+        "@types/jest": "^27.4.1",
+        "@typescript-eslint/eslint-plugin": "^5.17.0",
+        "@typescript-eslint/parser": "^5.17.0",
+        "babel-jest": "^27.5.1",
+        "babel-loader": "^8.2.4",
+        "clean-webpack-plugin": "^4.0.0",
+        "eslint": "^8.11.0",
+        "eslint-config-airbnb": "^19.0.4",
+        "eslint-config-airbnb-typescript": "^16.1.4",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-import": "^2.25.4",
+        "eslint-plugin-jest": "^26.1.2",
+        "eslint-plugin-jsx-a11y": "^6.5.1",
+        "eslint-plugin-react": "^7.29.4",
+        "husky": "^7.0.4",
+        "jest": "^27.5.1",
+        "lint-staged": "^12.3.7",
+        "prettier": "^2.6.0",
+        "semantic-release": "^19.0.2",
+        "terser-webpack-plugin": "^5.3.1",
+        "ts-jest": "^27.1.4",
+        "ts-loader": "^9.2.8",
+        "ts-node": "^10.7.0",
+        "tslib": "^2.3.1",
+        "typescript": "^4.6.2",
+        "webpack": "^5.70.0",
+        "webpack-cli": "^4.9.2"
+    }
+}

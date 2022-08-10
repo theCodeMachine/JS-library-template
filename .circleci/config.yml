@@ -1,0 +1,78 @@
+version: 2.1
+
+jobs:
+    install:
+        docker:
+            - image: cimg/node:17.7.2
+        working_directory: ~/js-lib-template
+        steps:
+            - checkout
+            - setup_remote_docker:
+                  docker_layer_caching: true
+            - run:
+                  name: Log into nexus npm registry
+                  command: ./scripts/npm-login.sh
+            - restore_cache:
+                  keys:
+                      - lib-dependencies-{{ checksum "yarn.lock" }}
+            - run:
+                  name: Install local dependencies
+                  command: yarn install --immutable
+            - save_cache:
+                  key: lib-dependencies-{{ checksum "yarn.lock" }}
+                  paths:
+                      - node_modules
+                      - .yarn/cache
+                      - .yarn/unplugged
+            - persist_to_workspace:
+                  root: ~/
+                  paths:
+                      - 'js-lib-template'
+    build:
+        docker:
+            - image: cimg/node:17.7.2
+        working_directory: ~/js-lib-template
+        steps:
+            - attach_workspace:
+                  at: ~/
+            - run:
+                  name: build
+                  command: yarn build
+    test:
+        docker:
+            - image: cimg/node:17.7.2
+        working_directory: ~/js-lib-template
+        steps:
+            - attach_workspace:
+                  at: ~/
+            - run:
+                  name: test
+                  command: yarn test
+    release:
+        docker:
+            - image: cimg/node:17.7.2
+        working_directory: ~/js-lib-template
+        steps:
+            - attach_workspace:
+                  at: ~/
+            - run:
+                  name: release
+                  command: yarn release
+
+workflows:
+    release_lib:
+        jobs:
+            - install:
+                  context: environment-variables
+            - build:
+                  requires:
+                      - install
+                  context: environment-variables
+            - test:
+                  requires:
+                      - build
+                  context: environment-variables
+            - release:
+                  requires:
+                      - test
+                  context: environment-variables
